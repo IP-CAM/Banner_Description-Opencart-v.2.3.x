@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+	<name>Banner Description</name>
+	<id>banner_description</id>
+	<version>2.3</version>
+	<author>REDS/ Ariel Gonçalves</author>
+	<link>https://www.agenciaprai.com/</link>
+	<description>
+		Cria uma entrada de descrição na coluna do banner, modulo construido com a ajuda do Ariel Gonçalves (veteranodf), 
+		a descrição é util para construir efeitos de hover e/ou outras funções para introduzir um texto no banner.
+	</description>
+	<!-- admin -->
+	<file path="admin/controller/design/banner.php">
+		<operation>
+			<search><![CDATA[$data['heading_title'] = $this->language->get('heading_title');]]></search>
+			<add position="after"><![CDATA[
+			$data['entry_description'] = $this->language->get('entry_description');
+			]]></add>
+		</operation>
+    <operation>
+			<search><![CDATA['title'      => $banner_image['title'],]]></search>
+			<add position="after"><![CDATA[
+			'description'			   => $banner_image['description'],
+      ]]></add>
+		</operation>
+	</file>
+	<file path="admin/model/design/banner.php">
+		<operation>
+			<search><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "banner_image SET banner_id = '" . (int)$banner_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($banner_image['title']) . "', link = '" .  $this->db->escape($banner_image['link']) . "', image = '" .  $this->db->escape($banner_image['image']) . "', sort_order = '" .  (int)$banner_image['sort_order'] . "'");
+			 ]]></search>
+			<add position="replace"><![CDATA[
+			$this->db->query("INSERT INTO " . DB_PREFIX . "banner_image SET banner_id = '" . (int)$banner_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($banner_image['title']) . "', description = '" .  $this->db->escape($banner_image['description']) . "', link = '" .  $this->db->escape($banner_image['link']) . "', image = '" .  $this->db->escape($banner_image['image']) . "', sort_order = '" .  (int)$banner_image['sort_order'] . "'");
+			]]></add>
+		</operation>
+		<operation>
+		    <search><![CDATA[
+		    $this->db->query("INSERT INTO " . DB_PREFIX . "banner_image SET banner_id = '" . (int)$banner_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($banner_image['title']) . "', link = '" .  $this->db->escape($banner_image['link']) . "', image = '" .  $this->db->escape($banner_image['image']) . "', sort_order = '" . (int)$banner_image['sort_order'] . "'");
+		    ]]></search>
+		    <add position="replace"><![CDATA[
+		    $this->db->query("INSERT INTO " . DB_PREFIX . "banner_image SET banner_id = '" . (int)$banner_id . "', language_id = '" . (int)$language_id . "', title = '" .  $this->db->escape($banner_image['title']) . "', description = '" .  $this->db->escape($banner_image['description'])  . "', link = '" .  $this->db->escape($banner_image['link']) . "', image = '" .  $this->db->escape($banner_image['image']) . "', sort_order = '" . (int)$banner_image['sort_order'] . "'");
+		    ]]></add>
+		</operation>
+    <operation>
+			<search><![CDATA[
+				'title'      => $banner_image['title'],
+				]]></search>
+			<add position="after"><![CDATA[
+				'description' => $banner_image['description'],
+				]]></add>
+		</operation>
+	</file>
+	<file path="admin/language/*/design/banner.php">
+		<operation>
+			<search><![CDATA[
+				// Entry
+				]]></search>
+			<add position="before"><![CDATA[
+			// banner
+			$_['entry_description']       = 'Descrição:';
+			$_['error_description']      = 'A descrição do banner deve ser maior que 3 caracteres e menor que 500!';
+			]]></add>
+		</operation>
+	</file>
+	<file path="admin/view/template/design/banner_form.tpl">
+    	<operation>
+    		<search><![CDATA[
+    		<td class="text-left"><?php echo $entry_title; ?></td>
+    		]]></search>
+    		<add position="after"><![CDATA[
+    		<td class="text-left"><?php echo $entry_description; ?></td>
+    		]]></add>
+    	</operation>
+        <operation>
+    		<search><![CDATA[
+    		<td class="text-left"><input type="text" name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][title]" value="<?php echo $banner_image['title']; ?>" placeholder="<?php echo $entry_title; ?>" class="form-control" />
+    		]]></search>
+        	<add position="after"><![CDATA[
+        	<!--td class="text-left"><input type="text" name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" value="<?php echo $banner_image['description']; ?>" placeholder="<?php echo $entry_banner_description; ?>" class="form-control" /></td-->
+					<td class="text-left"><textarea name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" rows="5" class="form-control"><?php echo !empty($banner_image['description'])?$banner_image['description']:''; ?></textarea></td>
+        	]]></add>
+        </operation>
+        <operation>
+    		<search><![CDATA[
+    		html += '  <td class="text-left"><input type="text" name="banner_image[' + language_id + '][' + image_row + '][title]" value="" placeholder="<?php echo $entry_title; ?>" class="form-control" /></td>';
+    		]]></search>
+    		<add position="after"><![CDATA[
+    		 //html += '<td class="text-left"><input type="text" name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" value="<?php echo $banner_image['description']; ?>" placeholder="<?php echo $entry_banner_description; ?>" class="form-control" /></td>';
+				 html += '<td class="text-left"><textarea name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" rows="5" class="form-control"><?php echo !empty($banner_image['description']['<?php echo $image_row; ?>'])?$banner_image['description']:''; ?></textarea></td>';
+    		]]></add>
+		</operation>
+		<operation>
+		    <search><![CDATA[<td colspan="4"></td>]]></search>
+		    <add position="replace"><![CDATA[<td colspan="5"></td>]]></add>
+		</operation>
+	</file>
+  <!-- catalog  -->
+	<file path="catalog/controller/extension/module/banner.php">
+		<operation>
+			<search><![CDATA[
+			'title' => $result['title'],
+			]]></search>
+			<add position="before"><![CDATA[
+			'description' => ($result['description']),
+			]]></add>
+		</operation>
+	</file>
+  <file path="catalog/view/theme/*/template/extension/module/banner.tpl">
+		<operation>
+			<search><![CDATA[
+			<a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
+			]]></search>
+			<add position="replace"><![CDATA[
+			<a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /><div class="desccription"><?php echo $banner['description']; ?></div></a>
+			]]></add>
+		</operation>
+	</file>
+</modification>
