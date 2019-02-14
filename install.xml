@@ -85,7 +85,6 @@
     		html += '  <td class="text-left"><input type="text" name="banner_image[' + language_id + '][' + image_row + '][title]" value="" placeholder="<?php echo $entry_title; ?>" class="form-control" /></td>';
     		]]></search>
     		<add position="after"><![CDATA[
-    		 //html += '<td class="text-left"><input type="text" name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" value="<?php echo $banner_image['description']; ?>" placeholder="<?php echo $entry_banner_description; ?>" class="form-control" /></td>';
 				 html += '<td class="text-left"><textarea name="banner_image[<?php echo $language['language_id']; ?>][<?php echo $image_row; ?>][description]" rows="5" class="form-control"><?php echo !empty($banner_image['description']['<?php echo $image_row; ?>'])?$banner_image['description']:''; ?></textarea></td>';
     		]]></add>
 		</operation>
@@ -95,7 +94,7 @@
 		</operation>
 	</file>
   <!-- catalog  -->
-	<file path="catalog/controller/extension/module/banner.php">
+	<file path="catalog/controller/extension/module/{banner,slideshow,carousel}.php">
 		<operation>
 			<search><![CDATA[
 			'title' => $result['title'],
@@ -105,13 +104,11 @@
 			]]></add>
 		</operation>
 	</file>
-  <file path="catalog/view/theme/*/template/extension/module/banner.tpl">
+  <file path="catalog/view/theme/*/template/extension/module/{banner,slideshow,carousel}.tpl">
 		<operation>
-			<search><![CDATA[
-			<a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /></a>
-			]]></search>
-			<add position="replace"><![CDATA[
-			<a href="<?php echo $banner['link']; ?>"><img src="<?php echo $banner['image']; ?>" alt="<?php echo $banner['title']; ?>" class="img-responsive" /><div class="desccription"><?php echo $banner['description']; ?></div></a>
+			<search info="add action"><![CDATA[<img src="<?php echo $banner['image']; ?>]]></search>
+			<add position="after"><![CDATA[
+			<div class="desccription"><?php echo $banner['description']; ?></div>
 			]]></add>
 		</operation>
 	</file>
