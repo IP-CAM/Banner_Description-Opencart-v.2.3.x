@@ -1,4 +1,4 @@
-# opencart_banner_description
+# Opencart Banner Description
 
 O objetivo dessa modificação e adicionar uma descrição nos banners, função essa que retorna em slideshow, banner e carousel.
 
