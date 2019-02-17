@@ -9,6 +9,9 @@ O objetivo dessa modificação é adicionar uma descrição nos banners, funçã
 - Versão foi construida para Opencart 2.3
 - Se você deseja utilizar para demais versões é preciso adaptar o script, versões menores a 2.3x podem mudar as tabelas do SQL.
 
+## Link no Marketplace do Opencart.com
+https://www.opencart.com/index.php?route=marketplace/extension/info&extension_id=36207
+
 ## Tela 1 (Campo descrição em banners)
 ![banners1](https://user-images.githubusercontent.com/8571832/52815675-75b41d80-3086-11e9-8a59-e4db301fb87a.png)
 ## Tela 2 (Texto da descrição sendo exibido no slideshow)
